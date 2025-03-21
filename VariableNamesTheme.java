@@ -106,7 +106,7 @@ public class VariableNamesTheme {
 
         // счетчик
         int count = 4;
-        System.out.println("счетчик = " +  count);
+        System.out.println("счетчик = " + count);
 
         // путь до файла
         String filePath = "C:/Users/HOME/Desktop/Java/StartJava";
@@ -115,7 +115,7 @@ public class VariableNamesTheme {
         // количество чисел в каждой строке
         int numbersPerRow = 5;
         System.out.println("количество чисел в каждой строке = " + numbersPerRow);
-        System.out.println("");
+        System.out.println();
 
         System.out.println("2 BOOLEAN-ПЕРЕМЕННЫЕ");
 
@@ -154,35 +154,35 @@ public class VariableNamesTheme {
         // имеются уникальные строки?
         boolean hasUniqueStrings = true;
         System.out.println("имеются уникальные строки? = " + hasUniqueStrings);
-        System.out.println("");
+        System.out.println();
 
         System.out.println("3 АББРЕВИАТУРЫ ");
 
-        //старый universally unique identifier
+        // старый universally unique identifier
         int oldUuid = 10;
         System.out.println("старый universally unique identifier = " + oldUuid);
 
-        //производитель оперативной памяти
+        // производитель оперативной памяти
         String ramManufacturer = "Kingston";
         System.out.println("производитель оперативной памяти = " + ramManufacturer);
 
-        //емкость жесткого диска
+        // емкость жесткого диска
         int hddCapacity = 1028;
         System.out.println("емкость жесткого диска = " + hddCapacity);
 
-        //протокол передачи гипертекста
+        // протокол передачи гипертекста
         String httpProtocol = "HTTP/3";
         System.out.println("протокол передачи гипертекста = " + httpProtocol);
 
-        //сокращенный uniform resource locator
+        // сокращенный uniform resource locator
         String shortUrl = "ya.ru";
         System.out.println("сокращенный uniform resource locator = " + shortUrl);
 
-        //новый идентификатор клиента
+        // новый идентификатор клиента
         int newClientId = 654;
         System.out.println("новый идентификатор клиента = " + newClientId);
 
-        //American standard code for information interchange
+        // American standard code for information interchange
         char asciiCode = 68;
         System.out.println("American standard code for information interchange = " + asciiCode);
     }
