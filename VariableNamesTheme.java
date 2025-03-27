@@ -5,12 +5,12 @@ public class VariableNamesTheme {
         System.out.println("1 РАЗНЫЕ ПЕРЕМЕННЫЕ");
 
         // цифра
-        int numb = 1;
-        System.out.println("цифра = " + numb);
+        int number = 1;
+        System.out.println("цифра = " + number);
 
         // сумма чисел
-        int sumNumbers = 2;
-        System.out.println("сумма чисел = " + sumNumbers);
+        int numbersSum = 2;
+        System.out.println("сумма чисел = " + numbersSum);
 
         // произведение цифр
         int productOfDigits = 3;
@@ -37,8 +37,8 @@ public class VariableNamesTheme {
         System.out.println("процент по вкладу = " + depositRate);
 
         // переменная хранит символ &
-        char and = '$';
-        System.out.println("переменная хранит символ & = " + and);
+        char ampersand = '$';
+        System.out.println("переменная хранит символ & = " + ampersand);
 
         // код ошибки
         int errorCode = 500;
@@ -49,12 +49,12 @@ public class VariableNamesTheme {
         System.out.println("тип ошибки = " + messageType);
 
         // число нулей
-        int nullCount = 0;
-        System.out.println("число нулей = " + nullCount);
+        int numberOfZeros = 0;
+        System.out.println("число нулей = " + numberOfZeros);
 
         // уникальное число
-        int uniqueValue = 777;
-        System.out.println("уникальное число = " + uniqueValue);
+        int uniqueNumber = 777;
+        System.out.println("уникальное число = " + uniqueNumber);
 
         // случайное число
         int randomNumber = 776;
@@ -89,8 +89,8 @@ public class VariableNamesTheme {
         System.out.println("окончание диапазона = " + rangeEnd);
 
         // имя работника месяца
-        String employeeMonth = "John";
-        System.out.println("имя работника месяца = " + employeeMonth);
+        String nameEmployeeMonth = "John";
+        System.out.println("имя работника месяца = " + nameEmployeeMonth);
 
         // название электронной книги
         String ebookTitle = "The Programmer's Brain";
@@ -115,13 +115,12 @@ public class VariableNamesTheme {
         // количество чисел в каждой строке
         int numbersPerRow = 5;
         System.out.println("количество чисел в каждой строке = " + numbersPerRow);
-        System.out.println();
 
-        System.out.println("2 BOOLEAN-ПЕРЕМЕННЫЕ");
+        System.out.println("\n2 BOOLEAN-ПЕРЕМЕННЫЕ");
 
         // сотни равны?
-        boolean isHundredsEqual = true;
-        System.out.println("сотни равны? " + isHundredsEqual);
+        boolean hasEqualHundreds = true;
+        System.out.println("сотни равны? " + hasEqualHundreds);
 
         // компьютер включен?
         boolean isComputerOn = true;
@@ -148,18 +147,18 @@ public class VariableNamesTheme {
         System.out.println("Новое? = " + isNew);
 
         // электронная почта действительная?
-        boolean isEmailValid = true;
-        System.out.println("электронная почта действительная? = " + isEmailValid);
+        boolean isValidEmail = true;
+        System.out.println("электронная почта действительная? = " + isValidEmail);
 
         // имеются уникальные строки?
         boolean hasUniqueStrings = true;
         System.out.println("имеются уникальные строки? = " + hasUniqueStrings);
-        System.out.println();
 
-        System.out.println("3 АББРЕВИАТУРЫ ");
+        System.out.println("\n3 АББРЕВИАТУРЫ ");
 
         // старый universally unique identifier
-        int oldUuid = 10;
+        String oldUuid = "3f8a8c26-4d3b-4f7b-ae8d-2b5e9d9b7f12";
+
         System.out.println("старый universally unique identifier = " + oldUuid);
 
         // производитель оперативной памяти
