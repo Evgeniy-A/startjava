@@ -76,20 +76,20 @@ public class VariablesTheme {
         System.out.println("Второе значение = " + secondNumber);
         System.out.println("\nПерестановка с помощью побитовой операции ^");
         firstNumber ^= secondNumber;
-        secondNumber = firstNumber ^ secondNumber;
+        secondNumber ^= firstNumber;
         firstNumber ^= secondNumber;
         System.out.println("Первое значение = " + firstNumber);
         System.out.println("Второе значение = " + secondNumber);
 
         System.out.println("\n6. ВЫВОД СИМВОЛОВ И ИХ КОДОВ");
         char dollar = '$';
-        char star = '*';
-        char dog = '@';
+        char asterisk = '*';
+        char atSign = '@';
         char caret = '^';
         char tilde = '~';
         System.out.println(dollar + " " + (int) dollar);
-        System.out.println(star + " " + (int) star);
-        System.out.println(dog + " " + (int) dog);
+        System.out.println(asterisk + " " + (int) asterisk);
+        System.out.println(atSign + " " + (int) atSign);
         System.out.println(caret + " " + (int) caret);
         System.out.println(tilde + " " + (int) tilde);
 
