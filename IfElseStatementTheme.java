@@ -59,20 +59,20 @@ public class IfElseStatementTheme {
         }
 
         System.out.println("\n4. ПОИСК ОДИНАКОВЫХ ЦИФР В ЧИСЛАХ");
-        boolean isHundredsEqual = firstNumber / 100 == secondNumber / 100;
-        boolean isTensEqual = (firstNumber / 10) % 10 == (secondNumber / 10) % 10;
-        boolean isUnitsEqual = firstNumber % 10 == secondNumber % 10;
-        if (!isHundredsEqual && !isTensEqual && !isUnitsEqual) {
+        boolean isEqualHundreds = firstNumber / 100 == secondNumber / 100;
+        boolean isEqualTens = (firstNumber / 10) % 10 == (secondNumber / 10) % 10;
+        boolean isEqualOnes = firstNumber % 10 == secondNumber % 10;
+        if (!isEqualHundreds && !isEqualTens && !isEqualOnes) {
             System.out.println("Равных цифр в числах нет");
         } else {
             System.out.println(firstNumber + " и " + secondNumber);
-            if (isHundredsEqual) {
+            if (isEqualHundreds) {
                 System.out.printf("Сотни равны между собой - %d\n", firstNumber / 100);
             }
-            if (isTensEqual) {
+            if (isEqualTens) {
                 System.out.printf("Десятки равны между собой - %d\n", (firstNumber / 10) % 10);
             }
-            if (isUnitsEqual) {
+            if (isEqualOnes) {
                 System.out.printf("Единицы равны между собой - %d\n", firstNumber % 10);
             }
         }
@@ -124,7 +124,7 @@ public class IfElseStatementTheme {
         System.out.printf("История - %d%nПрограммирование - %d%n", historyScore, programmingScore);
         System.out.printf("Средний балл оценок по предметам - %,.1f%n",
                 (double) (historyScore + programmingScore) / 2);
-        System.out.printf("Средний %% по предметам - %,.1f%n",
+        System.out.printf("Середний %% по предметам - %,.1f%n",
                 (double) (historyPercentage + programmingPercentage) / 2);
 
         System.out.println("\n8. РАСЧЕТ ГОДОВОЙ ПРИБЫЛИ");
@@ -132,9 +132,6 @@ public class IfElseStatementTheme {
         double rent = 5123.018;
         double costOfProduction = 9001.729;
         double annualProfit = 12 * (sales - rent - costOfProduction);
-        if (annualProfit == 0) {
-            System.out.println("Прибыль за год 0 руб.");
-        }
         if (annualProfit > 0) {
             System.out.printf("Прибыль за год: + %,.2f руб.%n", annualProfit);
         } else {
@@ -147,13 +144,10 @@ public class IfElseStatementTheme {
         var costOfProductionBigD = new BigDecimal("9001.729");
         var annualProfitBigD = BigDecimal.valueOf(12).multiply(salesBigD.subtract(rentBigD)
                 .subtract(costOfProductionBigD));
-        if (annualProfitBigD.compareTo(BigDecimal.ZERO) == 0) {
-            System.out.println("Прибыль за год 0 руб.");
-        }
         if (annualProfitBigD.compareTo(BigDecimal.ZERO) > 0) {
-            System.out.printf("Прибыль за год: + %,.2f руб.%n", annualProfit);
+            System.out.printf("Прибыль за год: + %,.2f руб.%n", annualProfitBigD);
         } else {
-            System.out.printf("Прибыль за год: %,.2f руб.%n", annualProfit);
+            System.out.printf("Прибыль за год: %,.2f руб.%n", annualProfitBigD);
         }
 
         System.out.println("\n10.*ПОДСЧЕТ НАЧИСЛЕННЫХ БАНКОМ %");
