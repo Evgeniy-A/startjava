@@ -25,7 +25,7 @@ public class CyclesTheme {
         int min = firstNumber;
         if (secondNumber > max) {
             max = secondNumber;
-            }
+        }
         if (thirdNumber > max) {
             max = thirdNumber;
         }
@@ -44,8 +44,9 @@ public class CyclesTheme {
         int numberSum = 0;
         int currNumber = 0;
         while (initialNumber > 0) {
-            currNumber = currNumber * 10 + (initialNumber % 10);
-            numberSum += initialNumber % 10;
+            int lastDigit = initialNumber % 10;
+            currNumber = currNumber * 10 + lastDigit;
+            numberSum += lastDigit;
             initialNumber /= 10;
         }
         System.out.print(currNumber);
@@ -166,9 +167,11 @@ public class CyclesTheme {
         }
         if (sumOfFirstHalf == sumOfSecondHalf) {
             System.out.printf("Число %d - счастливое%n", initialNumber);
-            System.out.printf("сумма цифр %d = %d%n", (initialNumber / 1000), sumOfFirstHalf);
-            System.out.printf("сумма цифр %d = %d%n", (initialNumber % 1000), sumOfSecondHalf);
+        } else {
+            System.out.printf("Число %d - не является счастливым%n", initialNumber);
         }
+        System.out.printf("сумма цифр %d = %d%n", (initialNumber / 1000), sumOfFirstHalf);
+        System.out.printf("сумма цифр %d = %d%n", (initialNumber % 1000), sumOfSecondHalf);
 
         System.out.println("\n10. ВЫВОД ТАБЛИЦЫ УМНОЖЕНИЯ ПИФАГОРА");
         System.out.print("  |");
