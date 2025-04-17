@@ -1,21 +1,20 @@
-import java.util.Scanner;
 import java.util.Random;
+import java.util.Scanner;
 
 public class GuessGame {
     public static void main(String[] args) {
         System.out.println("ИГРА \"УГАДАЙ ЧИСЛО\"");
-        Random random = new Random( );
-        int compNumber = random.nextInt(1,101);
+        Random random = new Random();
+        int targetNum = random.nextInt(1, 101);
         Scanner scanner = new Scanner(System.in);
-        int userGuess = scanner.nextInt();
-        while (userGuess != compNumber) {
-            if (userGuess > compNumber) {
-                System.out.printf("%d больше того, что загадал компьютер%n", userGuess);
+        int playerGuess = 0;
+        while (playerGuess != targetNum) {
+            playerGuess = scanner.nextInt();
+            if (playerGuess > targetNum) {
+                System.out.printf("%d больше того, что загадал компьютер%n", playerGuess);
             } else {
-                System.out.printf("%d меньше того, что загадал компьютер%n", userGuess);
+                System.out.printf("%d меньше того, что загадал компьютер%n", playerGuess);
             }
-            userGuess = scanner.nextInt();
-            continue;
         }
         System.out.println("Вы победили!");
     }
