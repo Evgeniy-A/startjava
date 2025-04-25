@@ -1,38 +1,41 @@
 public class Calculator {
     public void calculate(int firstNumber, char operator, int secondNumber) {
-        System.out.print("Результат: ");
+        double result = 1;
         switch (operator) {
             case '+':
-                System.out.println(firstNumber + secondNumber);
+                result = firstNumber + secondNumber;
                 break;
             case '-':
-                System.out.println(firstNumber - secondNumber);
+                result = firstNumber - secondNumber;
                 break;
             case '*':
-                System.out.println(firstNumber * secondNumber);
+                result = firstNumber * secondNumber;
                 break;
             case '/':
                 if (secondNumber == 0) {
-                    System.out.println("Ошибка: деление на ноль запрещено");
+                    break;
                 } else {
-                    System.out.println(firstNumber / secondNumber);
+                    result = firstNumber / secondNumber;
                 }
                 break;
             case '^':
-                double result = 1;
                 for (int i = 1; i <= Math.abs(secondNumber); i++) {
                     result *= firstNumber;
                 }
-                if (secondNumber < 0) {
-                    result = 1.0 / result;
-                }
-                System.out.println(result);
+                result = (secondNumber < 0) ? 1.0 / result : result;
                 break;
             case '%':
-                System.out.println(firstNumber % secondNumber);
+                result = firstNumber % secondNumber;
                 break;
             default:
                 System.out.printf("Ошибка: операция %c не поддерживается", operator);
+        }
+        if (operator == '^' && secondNumber < 0) {
+            System.out.printf("Результат: %.4f%n", result);
+        } else if (operator == '/' && secondNumber == 0) {
+            System.out.println("Ошибка: деление на ноль запрещено");
+        } else {
+            System.out.printf("Результат: %.0f%n", result);
         }
     }
 }
