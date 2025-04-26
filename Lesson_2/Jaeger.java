@@ -6,7 +6,7 @@ public class Jaeger {
     private int speed;
 
     public Jaeger() {
-        this.id = counter++;
+        id = counter++;
     }
 
     public Jaeger(String modelName, double height, int speed) {
