@@ -4,6 +4,7 @@ import java.util.Scanner;
 public class GuessNumber {
     Player player1;
     Player player2;
+    
     public void play(Scanner scanner) {
         Player currPlayer = player1;
         Random random = new Random();
