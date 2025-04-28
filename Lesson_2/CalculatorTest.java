@@ -5,19 +5,12 @@ public class CalculatorTest {
         Calculator calculator = new Calculator();
         Scanner scanner = new Scanner(System.in);
         String answer = "yes";
-        String supportedOperators = "+-*/^%";
         do {
-            final int firstNumber;
-            if (answer.equals("yes")) {
+            if (answer.equalsIgnoreCase("yes")) {
                 System.out.print("Введите первое число: ");
-                firstNumber = scanner.nextInt();
+                int firstNumber = scanner.nextInt();
                 System.out.print("Введите знак операции (+, -, *, /, ^, %): ");
-                char operator = scanner.next().charAt(0);
-                while (!supportedOperators.contains(String.valueOf(operator))) {
-                    System.out.printf("Ошибка: операция '%c' не поддерживается%n" +
-                            "Введите знак операции (+, -, *, /, ^, %%): ", operator);
-                    operator = scanner.next().charAt(0);
-                }
+                char operator = calculator.operatorChecking(scanner);
                 System.out.print("Введите второе число: ");
                 int secondNumber = scanner.nextInt();
                 calculator.calculate(firstNumber, operator, secondNumber);
