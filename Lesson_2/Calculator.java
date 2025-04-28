@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Calculator {
     public void calculate(int firstNumber, char operator, int secondNumber) {
         double result = 1;
@@ -37,5 +39,16 @@ public class Calculator {
         } else {
             System.out.printf("Результат: %.0f%n", result);
         }
+    }
+
+    public char operatorChecking(Scanner scanner) {
+        String supportedOperators = "+-*/^%";
+        char operator = scanner.next().charAt(0);
+        while (!supportedOperators.contains(String.valueOf(operator))) {
+            System.out.printf("Ошибка: операция '%c' не поддерживается%n" +
+                    "Введите знак операции (+, -, *, /, ^, %%): ", operator);
+            operator = scanner.next().charAt(0);
+        }
+        return operator;
     }
 }
