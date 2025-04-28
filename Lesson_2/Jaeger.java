@@ -13,7 +13,7 @@ public class Jaeger {
         this.modelName = modelName;
         this.height = height;
         this.speed = speed;
-        this.id = counter++;
+        id = counter++;
     }
 
     public static int getCounter() {
