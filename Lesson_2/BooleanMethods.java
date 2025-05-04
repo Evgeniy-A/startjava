@@ -1,11 +1,11 @@
 public class BooleanMethods {
-    public boolean isProgramRunning() {
+    public boolean isRunning() {
         System.out.print(Util.getCurrentMethodName() +
                 "() -> программа выполняется далее или завершается? ");
         return true;
     }
 
-    public boolean isFileDeleted() {
+    public boolean isDeleted() {
         System.out.print(Util.getCurrentMethodName() +
                 "() -> удалился ли файл на жестком диске или флешке? ");
         return true;
@@ -17,7 +17,7 @@ public class BooleanMethods {
         return true;
     }
 
-    public boolean isInputLetter() {
+    public boolean isEnteredLetter() {
         System.out.print(Util.getCurrentMethodName() +
                 "() -> пользователь ввел букву или что-то другое? ");
         return true;
@@ -35,7 +35,7 @@ public class BooleanMethods {
         return true;
     }
 
-    public boolean isEmptyImput() {
+    public boolean isEmptyInput() {
         System.out.print(Util.getCurrentMethodName() +
                 "() -> пользователь ввёл пустую строку или из одних пробелов? ");
         return true;
@@ -53,7 +53,7 @@ public class BooleanMethods {
         return true;
     }
 
-    public boolean isFileExist() {
+    public boolean isAvailable() {
         System.out.print(Util.getCurrentMethodName() +
                 "() -> файл по указанному адресу существует? ");
         return true;
