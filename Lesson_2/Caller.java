@@ -1,24 +1,24 @@
 public class Caller {
     public static void main(String[] args) {
-        Caller.callNonBooleanMethods();
-        Caller.callBooleanMethods();
+        Caller.doNonBooleanMethods();
+        Caller.doBooleanMethods();
     }
 
-    public static void callBooleanMethods() {
+    public static void doBooleanMethods() {
         BooleanMethods bm = new BooleanMethods();
-        System.out.println(bm.isProgramRunning());
-        System.out.println(bm.isFileDeleted());
+        System.out.println(bm.isRunning());
+        System.out.println(bm.isDeleted());
         System.out.println(bm.containsUniqueDigit());
-        System.out.println(bm.isInputLetter());
+        System.out.println(bm.isEnteredLetter());
         System.out.println(bm.hasEqualDigits());
         System.out.println(bm.hasAttempts());
-        System.out.println(bm.isEmptyImput());
+        System.out.println(bm.isEmptyInput());
         System.out.println(bm.hasEvenNums());
         System.out.println(bm.isValidPath());
-        System.out.println(bm.isFileExist());
+        System.out.println(bm.isAvailable());
     }
 
-    public static void callNonBooleanMethods() {
+    public static void doNonBooleanMethods() {
         NonBooleanMethods nonBm = new NonBooleanMethods();
         nonBm.findLongestWord();
         nonBm.selectMenu();
@@ -29,10 +29,10 @@ public class Caller {
         nonBm.restoreBackup();
         nonBm.pauseDownload();
         nonBm.resetSettings();
-        nonBm.saveDataToUsb();
-        nonBm.convertCelsiusToFahrenheit();
+        nonBm.saveData();
+        nonBm.celsiusToFahrenheit();
         nonBm.inputMathExpression();
-        nonBm.getWinnerNfs();
+        nonBm.findWinner();
         nonBm.findBookByAuthor();
     }
 }
