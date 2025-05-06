@@ -4,7 +4,6 @@ import java.util.Random;
 import java.util.Scanner;
 import com.startjava.lesson_2_3.guess.Player;
 
-
 public class MyFirstGame {
     private Player player1;
     private Player player2;
