@@ -3,6 +3,18 @@ package com.startjava.lesson_1.final_;
 import java.util.Scanner;
 
 public class Calculator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Calculator calculator = new Calculator();
+        System.out.print("Введите первое число: ");
+        int firstNumber = scanner.nextInt();
+        System.out.print("Введите символ: ");
+        char operator = calculator.operatorChecking(scanner);
+        System.out.print("Введите второе число: ");
+        int secondNumber = scanner.nextInt();
+        calculator.calculate(firstNumber, operator, secondNumber);
+    }
+
     public void calculate(int firstNumber, char operator, int secondNumber) {
         double result = 1;
         switch (operator) {
