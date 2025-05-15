@@ -3,7 +3,7 @@ package com.startjava.lesson_2_3.rps;
 import java.util.Random;
 import java.util.Scanner;
 
-    // Игра Камень-Ножницы-Бумага
+// Игра Камень-Ножницы-Бумага
 public class RpsGameFormatting {
     private static final String ROCK = "R";
     private static final String SCISSORS = "S";
@@ -64,15 +64,15 @@ public class RpsGameFormatting {
     private static void determineWinner(String name1, String sign1, String name2, String sign2) {
         if (sign1.equals(sign2)) {
             System.out.println("\nПобедила дружба!");
-        return;
+            return;
         }
         boolean isEqualName1 = sign1.equals(ROCK) && sign2.equals(SCISSORS) ||
                     sign1.equals(SCISSORS) && sign2.equals(PAPER) ||
                     sign1.equals(PAPER) && sign2.equals(ROCK);
         if (isEqualName1) {
-            System.out.println("\nПобедил - " + name1   );
+            System.out.println("\n Победил - " + name1);
         } else {
-            System.out.println("\nПобедил - " + name2)  ;
+            System.out.println("\n Победил - " + name2);
         }
     }
 }
