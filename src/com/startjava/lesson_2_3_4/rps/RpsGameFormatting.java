@@ -1,4 +1,4 @@
-package com.startjava.lesson_2_3.rps;
+package com.startjava.lesson_2_3_4.rps;
 
 import java.util.Random;
 import java.util.Scanner;
@@ -67,8 +67,8 @@ public class RpsGameFormatting {
             return;
         }
         boolean isEqualName1 = sign1.equals(ROCK) && sign2.equals(SCISSORS) ||
-                    sign1.equals(SCISSORS) && sign2.equals(PAPER) ||
-                    sign1.equals(PAPER) && sign2.equals(ROCK);
+                               sign1.equals(SCISSORS) && sign2.equals(PAPER) ||
+                               sign1.equals(PAPER) && sign2.equals(ROCK);
         if (isEqualName1) {
             System.out.println("\n Победил - " + name1);
         } else {

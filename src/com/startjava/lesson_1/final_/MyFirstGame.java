@@ -2,7 +2,7 @@ package com.startjava.lesson_1.final_;
 
 import java.util.Random;
 import java.util.Scanner;
-import com.startjava.lesson_2_3.guess.Player;
+import com.startjava.lesson_2_3_4.guess.Player;
 
 public class MyFirstGame {
     private Player player1;

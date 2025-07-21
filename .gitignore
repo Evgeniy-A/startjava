@@ -1,3 +1,9 @@
 *.class
+*.iml
+*.xml
+idea/
 config/
 check
+out/
+options
+optionsj
