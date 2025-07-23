@@ -8,25 +8,24 @@ public class LoadingAnimation {
     public static final String ANSI_RESET = "\u001B[0m";
 
     public static void main(String[] args) throws InterruptedException {
-        runSpinner();
-        printResult();
+        printAccessResult(runHackingProcess());
     }
 
-    private static void runSpinner() throws InterruptedException {
+    private static int runHackingProcess() throws InterruptedException {
         char[] spinnerSymbols = new char[]{'-', '\\', '|', '/'};
         for (int i = 0; i < 3; i++) {
             for (char symbol : spinnerSymbols) {
-                System.out.print("\rHacking : " + symbol);
+                System.out.print("\rHacking: " + symbol);
                 Thread.sleep(250);
             }
         }
+        int accessCode = new Random().nextInt(100);
+        return accessCode;
     }
 
-    private static void printResult() {
-        System.out.print("\rHacking :");
-        Random random = new Random();
-        int randomValue = random.nextInt(100);
-        if (randomValue > 70) {
+    private static void printAccessResult(int accessCode) {
+        System.out.print("\rHacking:");
+        if (accessCode > 70) {
             System.out.print(ANSI_RED + " Access Granted!" + ANSI_RESET);
         } else {
             System.out.print(ANSI_GREEN + " Access Denied!" + ANSI_RESET);
