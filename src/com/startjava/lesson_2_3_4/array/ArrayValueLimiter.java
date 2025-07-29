@@ -4,65 +4,62 @@ import java.util.Random;
 
 public class ArrayValueLimiter {
     public static void main(String[] args) {
-        double[] randomNumbers = generateRandomNumbers();
+        float[] randomNumbers = generateRandomNumbers();
         int limitIndex = -1;
-        double[] filterNumbers = filterByIndexValue(limitIndex, randomNumbers);
-        printFilterResult(limitIndex, randomNumbers, filterNumbers);
+        float[] filterNumbers = filterByIndexValue(limitIndex, randomNumbers);
+        printFilteredResult(limitIndex, randomNumbers, filterNumbers);
         limitIndex = 15;
         filterNumbers = filterByIndexValue(limitIndex, randomNumbers);
-        printFilterResult(limitIndex, randomNumbers, filterNumbers);
+        printFilteredResult(limitIndex, randomNumbers, filterNumbers);
         limitIndex = 0;
         filterNumbers = filterByIndexValue(limitIndex, randomNumbers);
-        printFilterResult(limitIndex, randomNumbers, filterNumbers);
+        printFilteredResult(limitIndex, randomNumbers, filterNumbers);
         limitIndex = 14;
         filterNumbers = filterByIndexValue(limitIndex, randomNumbers);
-        printFilterResult(limitIndex, randomNumbers, filterNumbers);
+        printFilteredResult(limitIndex, randomNumbers, filterNumbers);
     }
 
-    public static double[] generateRandomNumbers() {
+    private static float[] generateRandomNumbers() {
         Random random = new Random();
-        double[] randomNumbers = new double[15];
+        float[] randomNumbers = new float[15];
         for (int i = 0; i < randomNumbers.length; i++) {
-            randomNumbers[i] = random.nextDouble();
+            randomNumbers[i] = random.nextFloat();
         }
         return randomNumbers;
     }
 
-    public static double[] filterByIndexValue(int limitIndex, double[] randomNumbers) {
+    private static float[] filterByIndexValue(int limitIndex, float[] randomNumbers) {
         int length = randomNumbers.length;
         if (limitIndex < 0 || limitIndex >= length) {
             System.out.printf("Ошибка, некорректное значение индекса: %d!" +
                     "\nЗначение должно быть в диапазоне [0, 14]\n", limitIndex);
-            return new double[0];
+            return new float[0];
         }
-        double[] filterNumbers = new double[length];
-        double indexValue = randomNumbers[limitIndex];
+        float[] filteredNumbers = new float[length];
+        float indexValue = randomNumbers[limitIndex];
         for (int i = 0; i < length; i++) {
-            filterNumbers[i] = (randomNumbers[i] > indexValue) ? 0.0 : randomNumbers[i];
+            filteredNumbers[i] = (randomNumbers[i] > indexValue) ? 0.0f : randomNumbers[i];
         }
-        return filterNumbers;
+        return filteredNumbers;
     }
 
-    public static void printFilterResult(int limitIndex, double[] randomNumbers, double[] filterNumbers) {
-        int length = filterNumbers.length;
+    private static void printFilteredResult(int limitIndex, float[] randomNumbers, float[] filteredNumbers) {
+        int length = filteredNumbers.length;
         if (length == 0) {
             return;
         }
-        for (int i = 0; i < length; i++) {
-            System.out.printf("%.3f ", randomNumbers[i]);
+        printNumbers(randomNumbers);
+        printNumbers(filteredNumbers);
+        System.out.printf("%.3f%n%n", randomNumbers[limitIndex]);
+    }
+
+    private static void printNumbers(float[] numbers) {
+        for (int i = 0; i < numbers.length; i++) {
+            System.out.printf("%.3f ", numbers[i]);
             if (i == 7) {
-                System.out.println();
+                System.out.printf("%n");
             }
         }
-        System.out.println();
-        System.out.println();
-        for (int i = 0; i < length; i++) {
-            System.out.printf("%.3f ", filterNumbers[i]);
-            if (i == 7) {
-                System.out.println();
-            }
-        }
-        System.out.println();
-        System.out.printf("\n%.3f\n\n", randomNumbers[limitIndex]);
+        System.out.printf("%n%n");
     }
 }
