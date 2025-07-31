@@ -1,5 +1,7 @@
 package com.startjava.lesson_2_3_4.array;
 
+import java.sql.SQLOutput;
+
 public class SortedCharTriangle {
     public static void main(String[] args) {
         printTriangle(generateChars('0', '9', true));
@@ -8,42 +10,33 @@ public class SortedCharTriangle {
     }
 
     public static char[] generateChars(char leftBorder, char rightBorder, boolean isAscending) {
-        int step;
-        if (isAscending) {
-            if (leftBorder > rightBorder) {
-                System.out.printf("Ошибка: левая граница (%d) > правой (%d)\n",
-                            (int) leftBorder, (int) rightBorder);
-                return null;
-            }
-            step = 1;
-        } else {
-            if (leftBorder < rightBorder) {
-                System.out.printf("Ошибка: левая граница (%d) < правой (%d)\n",
-                            (int) leftBorder, (int) rightBorder);
-                return null;
-            }
-            step = -1;
+        if (leftBorder > rightBorder) {
+            System.out.printf("%nОшибка: левая граница (%d) > правой (%d)%n",
+                    (int) leftBorder, (int) rightBorder);
+            return null;
         }
-        int length = Math.abs(leftBorder - rightBorder) + 1;
+        int length = rightBorder - leftBorder + 1;
         char[] sortedChars = new char[length];
+        int step = isAscending ? 1 : -1;
+        char startSymbol = isAscending ? leftBorder : rightBorder;
         for (int i = 0; i < length; i++) {
-            sortedChars[i] = leftBorder;
-            leftBorder += (char) step;
+            sortedChars[i] = startSymbol;
+            startSymbol += step;
         }
         return sortedChars;
     }
 
-    public static void printTriangle(char[] sortedChars) {
-        if (sortedChars == null) {
+    public static void printTriangle(char[] charsForTriangle) {
+        if (charsForTriangle == null) {
             return;
         }
         StringBuilder triangle = new StringBuilder();
-        int maxWidth = sortedChars.length;
-        for (int i = 0; i < sortedChars.length; i++) {
+        int maxWidth = charsForTriangle.length;
+        for (int i = 0; i < charsForTriangle.length; i++) {
             int spaces = maxWidth - i - 1;
-            String line = " ".repeat(spaces) + Character.toString(sortedChars[i])
-                        .repeat(2 * i + 1);
-            triangle.append(line).append("\n");
+            triangle.append(" ".repeat(spaces))
+                    .append(Character.toString(charsForTriangle[i]).repeat(2 * i + 1))
+                    .append("\n");
         }
         System.out.println(triangle);
     }
