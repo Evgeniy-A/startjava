@@ -1,7 +1,5 @@
 package com.startjava.lesson_2_3_4.array;
 
-import java.sql.SQLOutput;
-
 public class SortedCharTriangle {
     public static void main(String[] args) {
         printTriangle(generateChars('0', '9', true));
