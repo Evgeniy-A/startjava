@@ -1,16 +1,16 @@
 package com.startjava.lesson_2_3_4.array;
 
-public class TypewriterPrinter {
+public class TypewriterEffect {
     public static void main(String[] args) throws InterruptedException {
-        printWithTypewriterEffect(transformTextByWordLength("Java - это C++, " +
+        type(upperCaseWordRange("Java - это C++, " +
                 "из которого убрали все пистолеты, ножи и дубинки.\n- James Gosling"));
-        printWithTypewriterEffect(transformTextByWordLength("Чтобы написать чистый код, " +
+        type(upperCaseWordRange("Чтобы написать чистый код, " +
                  "мы сначала пишем грязный код, затем рефакторим его.\n- Robert Martin"));
-        printWithTypewriterEffect(transformTextByWordLength(null));
-        printWithTypewriterEffect(transformTextByWordLength(""));
+        type(upperCaseWordRange(null));
+        type(upperCaseWordRange(""));
     }
 
-    private static String transformTextByWordLength(String input) {
+    private static String upperCaseWordRange(String input) {
         if (input == null) {
             return null;
         }
@@ -27,12 +27,12 @@ public class TypewriterPrinter {
             if (inputWords[i].matches("[\\p{Punct}]+")) {
                 continue;
             }
-            if (maxWordLength < inputWords[i].length()) {
-                maxWordLength = inputWords[i].length();
+            int lengthWord = inputWords[i].length();
+            if (maxWordLength < lengthWord) {
+                maxWordLength = lengthWord;
                 maxWordIndex = i;
-            }
-            if (minWordLength > inputWords[i].length()) {
-                minWordLength = inputWords[i].length();
+            } else if (minWordLength > lengthWord) {
+                minWordLength = lengthWord;
                 minWordIndex = i;
             }
         }
@@ -53,7 +53,7 @@ public class TypewriterPrinter {
         return resultLine.toString().trim();
     }
 
-    private static void printWithTypewriterEffect(String text) throws InterruptedException {
+    private static void type(String text) throws InterruptedException {
         if (text == null) {
             System.out.println("Ошибка данных - \"null\"");
             return;
