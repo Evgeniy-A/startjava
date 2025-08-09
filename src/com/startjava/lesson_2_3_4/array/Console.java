@@ -3,10 +3,13 @@ package com.startjava.lesson_2_3_4.array;
 import java.util.Arrays;
 
 public class Console {
+    private static final String ANSI_RED = "\u001B[31m";
+    private static final String ANSI_GREEN = "\u001B[32m";
+    private static final String ANSI_RESET = "\u001B[0m";
+
     private Console() {
     }
 
-    // Доп. метод для вывода ошибки в 6.ЗАПОЛНЕНИЕ МАССИВА УНИКАЛЬНЫМИ ЧИСЛАМИ
     public static boolean isArrayConditionsValid(
             int numbersPerLine,
             int length) {
@@ -23,26 +26,20 @@ public class Console {
         return isValid;
     }
 
-    // Доп.метод для вывода ошибки в 5 и 6
     public static boolean isBorderError(int leftBorder, int rightBorder) {
         if (leftBorder > rightBorder) {
             System.out.printf("Ошибка: левая граница (%d) > правой (%d)%n",
-                    (int) leftBorder, (int) rightBorder);
+                     leftBorder, rightBorder);
             return true;
         }
         return false;
     }
 
-    // 2. СИМУЛЯЦИЯ “ВЗЛОМА”
     public static void printAccessResult(int accessCode) {
-        final String ANSI_RED = "\u001B[31m";
-        final String ANSI_GREEN = "\u001B[32m";
-        final String ANSI_RESET = "\u001B[0m";
         String message = (accessCode > 70 ? ANSI_RED + "Access Granted!" : ANSI_GREEN + "Access Denied!");
         System.out.printf("\rHacking: %s%n%n" + ANSI_RESET, message);
     }
 
-    // 3.ВЫЧИСЛЕНИЕ ФАКТОРИАЛА
     public static void printFactorialExpression(long[] factorials, int... nums) {
         if (factorials == null) {
             System.out.println("Ошибка данных, массив не передан, \"null\"");
@@ -53,30 +50,31 @@ public class Console {
             System.out.println("Передан массив нулевой длины");
             return;
         }
-        StringBuilder expression = new StringBuilder();
         for (int i = 0; i < length; i++) {
             if (nums[i] < 0) {
                 System.out.printf("Ошибка: факториал %d! не определен\n", nums[i]);
                 continue;
             }
+            if (i < 2) {
+                System.out.println(nums[i] + "! = 1");
+                continue;
+            }
+            StringBuilder expression = new StringBuilder();
             for (long j = 1; j <= nums[i]; j++) {
+                expression.append(j);
                 if (j < nums[i]) {
-                    expression.append(j).append(" * ");
-                } else {
-                    expression.append(j);
+                    expression.append(" * ");
                 }
             }
-            System.out.println(nums[i] + "! = " + ((nums[i]) < 2 ? "1" : expression +
-                                                                         " = " + factorials[i]));
+            System.out.println(nums[i] + "! = " + expression + " = " + factorials[i]);
         }
     }
 
-    // 4.УДАЛЕНИЕ ЭЛЕМЕНТОВ МАССИВА, ПРЕВЫШАЮЩИХ ЗАДАННОЕ ЗНАЧЕНИЕ
     public static void printFilteredResult(int limitIndex, float[] randomNumbers, float[] filteredNumbers) {
         int length = filteredNumbers.length;
         if (limitIndex < 0 || limitIndex >= length) {
-            System.out.printf("\nОшибка, некорректное значение индекса: %d!" +
-                              "\nЗначение должно быть в диапазоне [0, 14]\n", limitIndex);
+            System.out.printf("%nОшибка, некорректное значение индекса: %d!" +
+                              "%nЗначение должно быть в диапазоне [0, 14]\n", limitIndex);
             return;
         }
         if (length == 0) {
@@ -84,10 +82,9 @@ public class Console {
         }
         printNumbers(randomNumbers);
         printNumbers(filteredNumbers);
-        System.out.printf("%n%.3f%n", randomNumbers[limitIndex]);
+        System.out.printf("%n%n%.3f%n", randomNumbers[limitIndex]);
     }
 
-    // вспомогательный метод
     private static void printNumbers(float[] numbers) {
         for (int i = 0; i < numbers.length; i++) {
             System.out.printf("%.3f ", numbers[i]);
@@ -97,18 +94,16 @@ public class Console {
         }
     }
 
-    // 2.АНИМАЦИЯ ЗАГРУЗКИ
     public static void printHackAnimation() throws InterruptedException {
         char[] spins = {'-', '\\', '|', '/'};
         System.out.println();
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < spins.length * 3; i++) {
             System.out.print("\rHacking: " + spins[i % 4]);
             Thread.sleep(250);
         }
     }
 
-    // 6.ЗАПОЛНЕНИЕ МАССИВА УНИКАЛЬНЫМИ ЧИСЛАМИ  Может быть проще принимать строку и ее печатать?
-    public static void printNumbers(int[] numbers, int numbersPerLine) {
+    public static void printNumbersPerLine(int[] numbers, int numbersPerLine) {
         if (numbers == null) {
             return;
         }
@@ -118,6 +113,7 @@ public class Console {
             return;
         }
         int length = numbers.length;
+        System.out.println();
         for (int i = 0; i < length; i++) {
             System.out.printf("%3d ", numbers[i]);
             if ((i + 1) % numbersPerLine == 0) {
@@ -126,7 +122,6 @@ public class Console {
         }
     }
 
-    // 1.РЕВЕРС БАНКОВСКИХ ТРАНЗАКЦИЙ
     public static void printTransactionsWithReversed(int[] transactions, int[] reversed) {
         if (reversed == null) {
             System.out.println("Ошибка в данных, информация о транзакциях отсутствует");
@@ -141,7 +136,6 @@ public class Console {
         }
     }
 
-    // 5.ВЫВОД ОТСОРТИРОВАННЫХ СИМВОЛОВ В ВИДЕ ТРЕУГОЛЬНИКА
     public static void printTriangle(char[] charsForTriangle) {
         if (charsForTriangle == null) {
             return;
@@ -158,7 +152,6 @@ public class Console {
         System.out.println(triangle);
     }
 
-    // 7.ВЫВОД ТЕКСТА С ЭФФЕКТОМ ПИШУЩЕЙ МАШИНКИ
     public static void type(String text) throws InterruptedException {
         if (text == null) {
             System.out.println("Ошибка данных - \"null\"");

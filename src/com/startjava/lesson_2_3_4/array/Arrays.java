@@ -1,13 +1,15 @@
 package com.startjava.lesson_2_3_4.array;
 
 import java.util.Random;
-import static com.startjava.lesson_2_3_4.array.Console.*;
+
+import static com.startjava.lesson_2_3_4.array.Console.printHackAnimation;
+import static com.startjava.lesson_2_3_4.array.Console.isArrayConditionsValid;
+import static com.startjava.lesson_2_3_4.array.Console.isBorderError;
 
 public class Arrays {
     private Arrays() {
     }
 
-    // 3.ВЫЧИСЛЕНИЕ ФАКТОРИАЛА
     public static long[] calculateFactorial(int... nums) {
         if (nums == null) {
             return null;
@@ -30,7 +32,6 @@ public class Arrays {
         return factorials;
     }
 
-    // 6.ЗАПОЛНЕНИЕ МАССИВА УНИКАЛЬНЫМИ ЧИСЛАМИ
     public static int[] fillUniqueNumbers(int leftBorder, int rightBorder, int numbersPerLine) {
         if (isBorderError(leftBorder, rightBorder)) {
             return null;
@@ -60,22 +61,20 @@ public class Arrays {
         return uniqueNumbers;
     }
 
-    // 4. УДАЛЕНИЕ ЭЛЕМЕНТОВ МАССИВА, ПРЕВЫШАЮЩИХ ЗАДАННОЕ ЗНАЧЕНИЕ
-    public static float[] filterByIndexValue(int limitIndex, float[] randomNumbers) {
-        int length = randomNumbers.length;
+    public static float[] filterByIndexValue(int limitIndex, float[] nums) {
+        int length = nums.length;
         if (limitIndex < 0 || limitIndex >= length) {
             return new float[0];
         }
         float[] filteredNumbers = new float[length];
-        float indexValue = randomNumbers[limitIndex];
+        float indexValue = nums[limitIndex];
         for (int i = 0; i < length; i++) {
-            filteredNumbers[i] = (randomNumbers[i] > indexValue) ? 0.0f : randomNumbers[i];
+            filteredNumbers[i] = (nums[i] > indexValue) ? 0.0f : nums[i];
         }
         return filteredNumbers;
     }
 
-    //  5.ВЫВОД ОТСОРТИРОВАННЫХ СИМВОЛОВ В ВИДЕ ТРЕУГОЛЬНИКА
-    public static char[] generateChars(char leftBorder, char rightBorder, boolean isAscending) {
+    public static char[] generateSortedChars(char leftBorder, char rightBorder, boolean isAscending) {
         if (isBorderError(leftBorder, rightBorder)) {
             return null;
         }
@@ -90,7 +89,6 @@ public class Arrays {
         return sortedChars;
     }
 
-    // 4.УДАЛЕНИЕ ЭЛЕМЕНТОВ МАССИВА, ПРЕВЫШАЮЩИХ ЗАДАННОЕ ЗНАЧЕНИЕ
     public static float[] generateRandomNumbers() {
         Random random = new Random();
         float[] randomNumbers = new float[15];
@@ -100,29 +98,26 @@ public class Arrays {
         return randomNumbers;
     }
 
-    // 2.АНИМАЦИЯ ЗАГРУЗКИ
     public static int hack() throws InterruptedException {
         printHackAnimation();
         return new Random().nextInt(100);
     }
 
-    // 1.РЕВЕРС БАНКОВСКИХ ТРАНЗАКЦИЙ
-    public static int[] reverse(int[] transactions) {
-        if (transactions == null) {
+    public static int[] reverse(int[] nums) {
+        if (nums == null) {
             return null;
         }
-        int length = transactions.length;
+        int length = nums.length;
         if (length == 0) {
             return new int[0];
         }
         int[] reversed = new int[length];
-        for (int tr : transactions) {
+        for (int tr : nums) {
             reversed[--length] = tr;
         }
         return reversed;
     }
 
-    // 7.ВЫВОД ТЕКСТА С ЭФФЕКТОМ ПИШУЩЕЙ МАШИНКИ
     public static String upperCaseWordRange(String input) {
         if (input == null) {
             return null;
