@@ -1,10 +1,10 @@
 package com.startjava.lesson_2_3_4.array;
 
-import java.util.Random;
-
-import static com.startjava.lesson_2_3_4.array.Console.printHackAnimation;
-import static com.startjava.lesson_2_3_4.array.Console.isArrayConditionsValid;
 import static com.startjava.lesson_2_3_4.array.Console.isBorderError;
+import static com.startjava.lesson_2_3_4.array.Console.isValidArrayConditions;
+import static com.startjava.lesson_2_3_4.array.Console.printHackAnimation;
+
+import java.util.Random;
 
 public class Arrays {
     private Arrays() {
@@ -37,7 +37,7 @@ public class Arrays {
             return null;
         }
         int length = (int) ((rightBorder - leftBorder + 1) * 0.75);
-        if (!isArrayConditionsValid(numbersPerLine, length)) {
+        if (!isValidArrayConditions(numbersPerLine, length)) {
             return null;
         }
         Random random = new Random();

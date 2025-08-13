@@ -10,7 +10,7 @@ public class Console {
     private Console() {
     }
 
-    public static boolean isArrayConditionsValid(
+    public static boolean isValidArrayConditions(
             int numbersPerLine,
             int length) {
         boolean isValid = true;
