@@ -11,74 +11,96 @@ public class HangmanGame {
             "|    /|\\",
             "|    / \\",
             "| GAME OVER!"};
-    private static String[] passwords = {"ПЕТЛЯ", "ВЕРЕВКА", "СТРАЖА", "ВИСИЛИЦА", "ПАЛАЧ"};
-    private static int attemptCount;
-    private static int lives;
-    private static StringBuilder incorrectLetters;
-    private static String gameWord;
-    private static int lengthWord;
-    private static StringBuilder maskWord;
-    private static String guessedLetter;
+    private static String[] words = {"ПЕТЛЯ", "ВЕРЕВКА", "СТРАЖА", "ВИСИЛИЦА", "ПАЛАЧ"};
+    private String gameWord;
+    private String guessedLetter;
+    private StringBuilder incorrectLetters;
+    private StringBuilder wordMask;
+    private int lengthWord;
+    private int attemptCount;
+    private int lives;
 
-    public static void playGame(Scanner scanner) {
+    public HangmanGame() {
+        Random random = new Random();
+        gameWord = words[random.nextInt(5)];
+        lengthWord = gameWord.length();
+        guessedLetter = new String();
+        incorrectLetters = new StringBuilder();
+        wordMask = createWordMask();
         attemptCount = gallows.length;
         lives = attemptCount;
-        incorrectLetters = new StringBuilder();
-        Random random = new Random();
-        gameWord = passwords[random.nextInt(5)];
-        lengthWord = gameWord.length();
-        maskWord = createMaskWord();
-        do {
-            printGameState();
-            guessedLetter = scanner.nextLine().toUpperCase();
-            if (!isValidGuess()) {
-                System.out.println("Используйте только русские буквы");
-                continue;
-            } else if (isRepeatedGuess()) {
-                System.out.println("%nТакая буква уже была, попробуйте другую%n");
-                continue;
-            }
-            processGuess();
-        } while (lives != 0 && !gameWord.equals(maskWord.toString()));
-        printGameOver();
     }
 
-    private static StringBuilder createMaskWord() {
+    public void playGame(Scanner scanner) {
+        do {
+            printGameState();
+            inputValidLetter(scanner);
+            processGuess();
+        } while (!isGameEnded());
+        printGameStatus();
+    }
+
+    private StringBuilder createWordMask() {
         StringBuilder maskWord = new StringBuilder();
-        maskWord.append("_".repeat(Math.max(0, lengthWord)));
+        maskWord.append("_".repeat(lengthWord));
         return maskWord;
     }
 
-    private static void printGameState() {
-        System.out.printf("%nОтгадайте слово: %s%n", maskWord);
+    private void printGameState() {
+        System.out.printf("%nОтгадайте слово: %s%n", wordMask);
         printGallows();
         System.out.printf("Количество попыток: %d%n", lives);
         printIncorrectLetters();
         System.out.print("Введите букву: ");
     }
 
-    private static void printGallows() {
+    private void printGallows() {
         for (int i = 0; i < attemptCount - lives; i++) {
             System.out.println(gallows[i]);
         }
     }
 
-    private static void printIncorrectLetters() {
+    private void printIncorrectLetters() {
         if (!incorrectLetters.toString().isBlank()) {
             System.out.printf("Ошибочные буквы: %s%n", incorrectLetters);
         }
     }
 
-    private static boolean isValidGuess() {
+    private void inputValidLetter(Scanner scanner) {
+        while (true) {
+            guessedLetter = scanner.nextLine().toUpperCase();
+            if (!isCyrillicLetter()) {
+                printCyrillicLetterError();
+                printGameState();
+                continue;
+            }
+            if (isRepeatedGuess()) {
+                printRepeatedGuess();
+                printGameState();
+                continue;
+            }
+            break;
+        }
+    }
+
+    private boolean isCyrillicLetter() {
         return guessedLetter.matches("[А-Яа-яЁё]");
     }
 
-    private static boolean isRepeatedGuess() {
-        return (incorrectLetters.toString().contains(guessedLetter) ||
-                maskWord.toString().contains(guessedLetter));
+    private void printCyrillicLetterError() {
+        System.out.println("\nИспользуйте только русские буквы");
     }
 
-    private static int processGuess() {
+    private boolean isRepeatedGuess() {
+        return (incorrectLetters.toString().contains(guessedLetter) ||
+                wordMask.toString().contains(guessedLetter));
+    }
+
+    private void printRepeatedGuess() {
+        System.out.println("\nТакая буква уже была, попробуйте другую");
+    }
+
+    private int processGuess() {
         if (gameWord.contains(guessedLetter.toUpperCase())) {
             updateMaskWithLetter();
             lives = Math.min(lives + 1, attemptCount);
@@ -89,15 +111,19 @@ public class HangmanGame {
         return lives;
     }
 
-    private static void updateMaskWithLetter() {
+    private void updateMaskWithLetter() {
         for (int i = 0; i < lengthWord; i++) {
             if (gameWord.charAt(i) == guessedLetter.charAt(0)) {
-                maskWord.setCharAt(i, guessedLetter.charAt(0));
+                wordMask.setCharAt(i, guessedLetter.charAt(0));
             }
         }
     }
 
-    private static void printGameOver() {
+    private boolean isGameEnded() {
+        return (lives == 0 || gameWord.equals(wordMask.toString()));
+    }
+
+    private void printGameStatus() {
         if (lives == 0) {
             printGallows();
             System.out.printf("Количество попыток: %d%n", lives);
@@ -107,3 +133,4 @@ public class HangmanGame {
         }
     }
 }
+

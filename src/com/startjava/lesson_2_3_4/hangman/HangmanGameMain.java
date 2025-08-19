@@ -3,20 +3,25 @@ package com.startjava.lesson_2_3_4.hangman;
 import java.util.Scanner;
 
 public class HangmanGameMain {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
+        HangmanGame hangmanGame = new HangmanGame();
         Scanner scanner = new Scanner(System.in);
-        String answerToQuestion;
-        HangmanGame.playGame(scanner);
         do {
-            System.out.println("Хотите повторить? ");
-            answerToQuestion = scanner.nextLine().toLowerCase();
+            hangmanGame.playGame(scanner);
+        } while (askToRepeat(scanner));
+    }
+
+    private static boolean askToRepeat(Scanner scanner) {
+        while (true) {
+            System.out.println("Хотите повторить игру? [yes / no]");
+            String answerToQuestion = scanner.nextLine();
             if (answerToQuestion.equals("yes")) {
-                HangmanGame.playGame(scanner);
-            } else if (answerToQuestion.equals("no")) {
-                break;
-            } else {
-                System.out.println("Введите корректный ответ [yes / no]:");
+                return true; 
             }
-        } while (true);
+            if (answerToQuestion.equals("no")) {
+                return false;
+            }
+            System.out.println("Введите корректный ответ [yes / no]:");
+        }
     }
 }
