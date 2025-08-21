@@ -1,56 +1,45 @@
 package com.startjava.lesson_2_3_4.calculator;
 
-import java.util.Scanner;
+import java.text.DecimalFormat;
 
 public class Calculator {
-    public void calculate(int firstNumber, char operator, int secondNumber) {
-        double result = 1;
+    public double calculate(String expression) {
+        String[] splitExpression = expression.replaceAll("\\s+", "")
+                .split("(?<=\\D)|(?=\\D)");
+        int firstNumber = Integer.parseInt(splitExpression[0]);
+        int secondNumber = Integer.parseInt(splitExpression[2]);
+        String operator = splitExpression[1];
         switch (operator) {
-            case '+':
-                result = firstNumber + secondNumber;
-                break;
-            case '-':
-                result = firstNumber - secondNumber;
-                break;
-            case '*':
-                result = firstNumber * secondNumber;
-                break;
-            case '/':
+            case "+" -> {
+                return firstNumber + secondNumber;
+            }
+            case "-" -> {
+                return firstNumber - secondNumber;
+            }
+            case "*" -> {
+                return firstNumber * secondNumber;
+            }
+            case "/" -> {
                 if (secondNumber == 0) {
-                    break;
-                } else {
-                    result = firstNumber / secondNumber;
+                    System.out.println("Ошибка: деление на 0!");
+                    return Double.NaN;
                 }
-                break;
-            case '^':
-                for (int i = 1; i <= Math.abs(secondNumber); i++) {
-                    result *= firstNumber;
+                return (double) firstNumber / secondNumber;
+            }
+            case "^" -> {
+                return Math.pow(firstNumber, secondNumber);
+            }
+            case "%" -> {
+                if (secondNumber == 0) {
+                    System.out.println("Ошибка: попытка деления на 0");
+                    return Double.NaN;
                 }
-                result = (secondNumber < 0) ? 1.0 / result : result;
-                break;
-            case '%':
-                result = firstNumber % secondNumber;
-                break;
-            default:
-                System.out.printf("Ошибка: операция %c не поддерживается", operator);
+                return Math.IEEEremainder(firstNumber, secondNumber);
+            }
+            default -> {
+                System.out.printf("Ошибка: операция %s не поддерживается%n", operator);
+                return Double.NaN;
+            }
         }
-        if (operator == '^' && secondNumber < 0) {
-            System.out.printf("Результат: %.4f%n", result);
-        } else if (operator == '/' && secondNumber == 0) {
-            System.out.println("Ошибка: деление на ноль запрещено");
-        } else {
-            System.out.printf("Результат: %.0f%n", result);
-        }
-    }
-
-    public char operatorChecking(Scanner scanner) {
-        String supportedOperators = "+-*/^%";
-        char operator = scanner.next().charAt(0);
-        while (!supportedOperators.contains(String.valueOf(operator))) {
-            System.out.printf("Ошибка: операция '%c' не поддерживается%n" +
-                    "Введите знак операции (+, -, *, /, ^, %%): ", operator);
-            operator = scanner.next().charAt(0);
-        }
-        return operator;
     }
 }

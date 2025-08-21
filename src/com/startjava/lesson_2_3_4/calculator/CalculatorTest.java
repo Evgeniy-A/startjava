@@ -1,25 +1,32 @@
 package com.startjava.lesson_2_3_4.calculator;
 
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class CalculatorTest {
     public static void main(String[] args) {
-        Calculator calculator = new Calculator();
         Scanner scanner = new Scanner(System.in);
-        String answer = "yes";
-        do {
-            if (answer.equalsIgnoreCase("yes")) {
-                System.out.print("Введите первое число: ");
-                int firstNumber = scanner.nextInt();
-                System.out.print("Введите знак операции (+, -, *, /, ^, %): ");
-                char operator = calculator.operatorChecking(scanner);
-                System.out.print("Введите второе число: ");
-                int secondNumber = scanner.nextInt();
-                calculator.calculate(firstNumber, operator, secondNumber);
-                scanner.nextLine();
+        String answerToQuestion = "yes";
+        while (!answerToQuestion.equals("no")) {
+            if (!answerToQuestion.equals("yes")) {
+                System.out.println("Введите корректный ответ [yes / no]: ");
+                answerToQuestion = scanner.nextLine();
+                continue;
             }
-            System.out.print("Хотите продолжить вычисления? [yes/no]: ");
-            answer = scanner.nextLine().trim();
-        } while (!answer.equalsIgnoreCase("no"));
+            System.out.println("Введите выражение из трех аргументов, например, 2 ^ 10: ");
+            String expression = scanner.nextLine();
+            Calculator calculator = new Calculator();
+            double result = calculator.calculate(expression);
+            printResultCalcExpression(expression, result);
+            System.out.println("Продолжим вычисления? [yes / no]");
+            answerToQuestion = scanner.nextLine();
+        }
+    }
+
+    private static void printResultCalcExpression(String expression, double result) {
+        if (!Double.isNaN(result)) {
+            DecimalFormat df = new DecimalFormat("#.###");
+            System.out.printf("%s = %s%n", expression, df.format(result));
+        }
     }
 }
