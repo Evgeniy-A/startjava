@@ -1,11 +1,17 @@
 package com.startjava.lesson_2_3_4.calculator;
 
 public class Calculator {
-    public double calculate(String expression) {
-        String[] splitExpression = expression.replaceAll("\\s+", "")
-                .split("(?<=\\D)|(?=\\D)");
-        int firstNumber = Integer.parseInt(splitExpression[0]);
-        int secondNumber = Integer.parseInt(splitExpression[2]);
+    public static double calculate(String expression) {
+        String[] splitExpression = expression.split(" ");
+        int firstNumber;
+        int secondNumber;
+        try {
+            firstNumber = Integer.parseInt(splitExpression[0]);
+            secondNumber = Integer.parseInt(splitExpression[2]);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Ошибка: введено не целое число");
+        }
+
         String operator = splitExpression[1];
         return switch (operator) {
             case "+" -> firstNumber + secondNumber;
@@ -13,8 +19,7 @@ public class Calculator {
             case "*" -> firstNumber * secondNumber;
             case "/", "%" -> {
                 if (secondNumber == 0) {
-                    System.out.println("Ошибка: деление на 0!");
-                    yield Double.NaN;
+                    throw new ArithmeticException("Ошибка: деление на 0!");
                 }
                 if (operator.equals("/")) {
                     yield (double) firstNumber / secondNumber;
@@ -24,8 +29,8 @@ public class Calculator {
             }
             case "^" -> Math.pow(firstNumber, secondNumber);
             default -> {
-                System.out.printf("Ошибка: операция %s не поддерживается%n", operator);
-                yield Double.NaN;
+                throw new IllegalArgumentException(String
+                        .format("Ошибка, знак не поддерживается для выражений вида: %s", expression));
             }
         };
     }
