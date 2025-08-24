@@ -1,8 +1,13 @@
 package com.startjava.lesson_2_3_4.calculator;
 
 public class Calculator {
+    private static final int EXPRESSION_LENGTH = 3;
+
     public static double calculate(String expression) {
         String[] splitExpression = expression.split(" ");
+        if (splitExpression.length != EXPRESSION_LENGTH) {
+            throw new IllegalArgumentException("Ошибка: выражение должно состоять из трёх аргументов");
+        }
         int firstNumber;
         int secondNumber;
         try {
@@ -23,15 +28,16 @@ public class Calculator {
                 }
                 if (operator.equals("/")) {
                     yield (double) firstNumber / secondNumber;
-                } else {
-                    yield Math.IEEEremainder(firstNumber, secondNumber);
                 }
+                yield Math.IEEEremainder(firstNumber, secondNumber);
             }
             case "^" -> Math.pow(firstNumber, secondNumber);
-            default -> {
-                throw new IllegalArgumentException(String
-                        .format("Ошибка, знак не поддерживается для выражений вида: %s", expression));
-            }
+            default -> throw new IllegalArgumentException(String
+                    .format("Ошибка, знак не поддерживается для выражений вида: %s", expression));
         };
+    }
+
+    public static String cleanExpression(String expression) {
+        return expression.replaceAll("\\s+", " ").trim();
     }
 }
