@@ -32,12 +32,8 @@ public class Calculator {
                 yield Math.IEEEremainder(firstNumber, secondNumber);
             }
             case "^" -> Math.pow(firstNumber, secondNumber);
-            default -> throw new IllegalArgumentException(String
-                    .format("Ошибка, знак не поддерживается для выражений вида: %s", expression));
+            default -> throw new IllegalArgumentException(
+                    String.format("Ошибка, операция '%s' не поддерживается", operator));
         };
-    }
-
-    public static String cleanExpression(String expression) {
-        return expression.replaceAll("\\s+", " ").trim();
     }
 }

@@ -8,22 +8,25 @@ public class CalculatorTest {
         Scanner scanner = new Scanner(System.in);
         String answerToQuestion = "yes";
         while (!answerToQuestion.equals("no")) {
-            if (!answerToQuestion.equals("yes")) {
+            if (answerToQuestion.equals("yes")) {
+                System.out.println("Введите выражение из трех аргументов, например, 2 ^ 10: ");
+                String expression = removeDuplicateSpaces(scanner.nextLine());
+                try {
+                    double result = Calculator.calculate(expression);
+                    printResultCalcExpression(expression, result);
+                } catch (IllegalArgumentException | ArithmeticException e) {
+                    System.out.println(e.getMessage());
+                }
+                System.out.println("Продолжим вычисления? [yes / no]");
+            } else {
                 System.out.println("Введите корректный ответ [yes / no]: ");
-                answerToQuestion = scanner.nextLine();
-                continue;
             }
-            System.out.println("Введите выражение из трех аргументов, например, 2 ^ 10: ");
-            String expression = Calculator.cleanExpression(scanner.nextLine());
-            try {
-                double result;
-                result = Calculator.calculate(expression);
-                printResultCalcExpression(expression, result);
-            } catch (IllegalArgumentException | ArithmeticException e) {
-                System.out.println(e.getMessage());
-            }
-            System.out.println("Продолжим вычисления? [yes / no]");
+            answerToQuestion = scanner.nextLine();
         }
+    }
+
+    private static String removeDuplicateSpaces(String expression) {
+        return expression.replaceAll("\\s+", " ").trim();
     }
 
     private static void printResultCalcExpression(String expression, double result) {
