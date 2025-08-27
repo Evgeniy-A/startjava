@@ -10,7 +10,6 @@ public class Player {
     public Player(String name) {
         this.name = name;
         this.guessedNumbers = new int[GuessNumber.MAX_ATTEMPTS];
-        this.attemptCount = 0;
     }
 
     public String getName() {
@@ -26,7 +25,7 @@ public class Player {
     }
 
     public void setNumber(int guessedNumber) {
-        if (GuessNumber.MIN_NUMBER > guessedNumber || guessedNumber > GuessNumber.MAX_NUMBER) {
+        if (guessedNumber < GuessNumber.MIN_NUMBER || guessedNumber > GuessNumber.MAX_NUMBER) {
             throw new IllegalArgumentException(
                     String.format("Число должно входить в отрезок [%d, %d].\n" +
                                   "Попробуйте еще раз:", GuessNumber.MIN_NUMBER, GuessNumber.MAX_NUMBER));
@@ -34,13 +33,13 @@ public class Player {
         guessedNumbers[attemptCount++] = guessedNumber;
     }
 
-    private void setAttemptCount() {
+    private void resetAttemptCount() {
         attemptCount = 0;
     }
 
     public void resetGuessedNumbers() {
         Arrays.fill(guessedNumbers, 0, attemptCount, 0);
-        setAttemptCount();
+        resetAttemptCount();
     }
 
     @Override

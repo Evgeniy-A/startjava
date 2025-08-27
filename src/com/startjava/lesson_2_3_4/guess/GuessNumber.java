@@ -19,24 +19,20 @@ public class GuessNumber {
     public void play(Scanner scanner) {
         Random random = new Random();
         Player currPlayer = player2;
-        int secretNumber = random.nextInt(1, 101);
+        int secretNumber = random.nextInt(MIN_NUMBER, MAX_NUMBER);
         int playerNumber = 0;
         System.out.printf("Игра началась! У каждого игрока по %d попыток%n", MAX_ATTEMPTS);
         while (playerNumber != secretNumber) {
-            currPlayer = (currPlayer == player2) ? player1 : player2;
+            currPlayer = changePlayer(currPlayer);
             System.out.printf("Попытка %d%nЧисло вводит %s: ",
                     currPlayer.getAttemptCount() + 1, currPlayer.getName());
             playerNumber = enterNumber(currPlayer, scanner);
             printCheckNumberMessage(playerNumber, secretNumber);
-            if (currPlayer.getAttemptCount() == MAX_ATTEMPTS) {
-                System.out.printf("У %s закончились попытки!%n", currPlayer.getName());
-                if (isDraw()) {
-                    System.out.println("У игроков закончились попытки. Ничья!");
-                    break;
-                }
+            if(isDraw(currPlayer)) {
+                break;
             }
         }
-        if (!isDraw()) {
+        if (!isDraw(currPlayer)) {
             System.out.printf("%s угадал(а) число %d c %d-й попытки%n",
                     currPlayer.getName(), secretNumber, currPlayer.getAttemptCount());
         }
@@ -46,13 +42,17 @@ public class GuessNumber {
         player2.resetGuessedNumbers();
     }
 
+    private Player changePlayer(Player currPlayer) {
+        return (currPlayer == player2) ? player1 : player2;
+    }
+
     private static int enterNumber(Player currPlayer, Scanner scanner) {
         while (true) {
-            int playerGuess = scanner.nextInt();
+            int playerNumber = scanner.nextInt();
             scanner.nextLine();
             try {
-                currPlayer.setNumber(playerGuess);
-                return playerGuess;
+                currPlayer.setNumber(playerNumber);
+                return playerNumber;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
@@ -64,8 +64,15 @@ public class GuessNumber {
         System.out.printf("%d %s загаданного числа%n", playerNumber, checkMessage);
     }
 
-    private boolean isDraw() {
-        return (player1.getAttemptCount() == MAX_ATTEMPTS &&
-                player2.getAttemptCount() == MAX_ATTEMPTS);
+    private boolean isDraw(Player currPlayer) {
+        if (currPlayer.getAttemptCount() == MAX_ATTEMPTS) {
+            System.out.printf("У %s закончились попытки!%n", currPlayer.getName());
+            if (player1.getAttemptCount() == MAX_ATTEMPTS &&
+                player2.getAttemptCount() == MAX_ATTEMPTS) {
+                System.out.println("У игроков закончились попытки. Ничья!");
+                return true;
+            }
+        }
+        return false;
     }
 }
