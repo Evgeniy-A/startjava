@@ -6,25 +6,27 @@ public class Player {
     private String name;
     private int[] guessedNumbers;
     private int attemptCount;
+    private int roundWins;
 
     public Player(String name) {
         this.name = name;
-        this.guessedNumbers = new int[GuessNumber.MAX_ATTEMPTS];
+        guessedNumbers = new int[GuessNumber.MAX_ATTEMPTS];
+        roundWins = 0;
     }
 
     public String getName() {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public int[] getGuessedNumbers() {
         return Arrays.copyOf(guessedNumbers, attemptCount);
     }
 
-    public int getAttemptCount() {
-        return attemptCount;
-    }
-
-    public void setNumber(int guessedNumber) {
+    public void setNumbers(int guessedNumber) {
         if (guessedNumber < GuessNumber.MIN_NUMBER || guessedNumber > GuessNumber.MAX_NUMBER) {
             throw new IllegalArgumentException(
                     String.format("Число должно входить в отрезок [%d, %d].\n" +
@@ -33,13 +35,33 @@ public class Player {
         guessedNumbers[attemptCount++] = guessedNumber;
     }
 
-    private void resetAttemptCount() {
-        attemptCount = 0;
+    public int getAttemptCount() {
+        return attemptCount;
+    }
+
+    public void setAttemptCount(int attemptCount) {
+        this.attemptCount = attemptCount;
+    }
+
+    public int getRoundWins() {
+        return roundWins;
+    }
+
+    public void setRoundWins(int roundWins) {
+        this.roundWins = roundWins;
+    }
+
+    public void addWin() {
+        roundWins++;
     }
 
     public void resetGuessedNumbers() {
         Arrays.fill(guessedNumbers, 0, attemptCount, 0);
         resetAttemptCount();
+    }
+
+    private void resetAttemptCount() {
+        attemptCount = 0;
     }
 
     @Override

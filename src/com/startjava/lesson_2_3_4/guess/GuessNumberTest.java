@@ -3,11 +3,9 @@ package com.startjava.lesson_2_3_4.guess;
 import java.util.Scanner;
 
 public class GuessNumberTest {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
-        Player player1 = creatPlayer(scanner, "Введите имя первого игрока: ");
-        Player player2 = creatPlayer(scanner, "Введите имя второго игрока: ");
-        GuessNumber game = new GuessNumber(player1, player2);
+        GuessNumber game = creatGame(scanner);
         String answerToQuestion = "yes";
         while (!answerToQuestion.equals("no")) {
             if (answerToQuestion.equals("yes")) {
@@ -20,8 +18,12 @@ public class GuessNumberTest {
         }
     }
 
-    private static Player creatPlayer(Scanner scanner, String message) {
-        System.out.println(message);
-        return new Player(scanner.nextLine());
+    private static GuessNumber creatGame(Scanner scanner) {
+        String[] names = new String[GuessNumber.COUNT_PLAYERS];
+        for (int i = 0; i < names.length; i++) {
+            System.out.printf("Введите имя %d-ого игрока: ", i + 1);
+            names[i] = scanner.nextLine();
+        }
+        return new GuessNumber(names);
     }
 }

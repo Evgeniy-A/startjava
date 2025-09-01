@@ -12,7 +12,7 @@ public class MyFirstGame {
         this.player1 = player1;
         this.player2 = player2;
     }
-    
+
     public void play(Scanner scanner) {
         Player currPlayer = player1;
         Random random = new Random();
