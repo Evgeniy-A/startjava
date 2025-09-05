@@ -8,30 +8,31 @@ public class GuessNumber {
     public static final int MAX_ATTEMPTS = 10;
     public static final int MIN_NUMBER = 1;
     public static final int MAX_NUMBER = 100;
-    public static final int COUNT_PLAYERS = 3;
-    public static final int COUNT_ROUNDS = 3;
+    public static final int PLAYERS_COUNT = 3;
+    public static final int ROUNDS_COUNT = 3;
 
-    private static Player[] players = new Player[COUNT_PLAYERS];
+    private Player[] players = new Player[PLAYERS_COUNT];
     private int currentPlayerIndex = 0;
 
-    public GuessNumber(String[] names) {
+    public GuessNumber() {
         for (int i = 0; i < players.length; i++) {
-            players[i] = new Player(names[i]);
+            players[i] = new Player();
         }
     }
 
     public void play(Scanner scanner) throws InterruptedException {
+        creatPlayers(scanner);
         Random random = new Random();
         castLots(random);
         System.out.printf("%nИгра началась! У каждого игрока по %d попыток%n", MAX_ATTEMPTS);
         Player currPlayer = players[0];
-        for (int i = 1; i <= COUNT_ROUNDS; i++) {
-            int secretNumber = random.nextInt(MIN_NUMBER, MAX_NUMBER);
+        for (int i = 1; i <= ROUNDS_COUNT; i++) {
+            int secretNumber = random.nextInt(MIN_NUMBER, MAX_NUMBER + 1);
             int playerNumber;
             boolean guessed = false;
             System.out.printf("РАУНД %d%n", i);
-            while (!isRoundOverByAttempts()) {
-                if (isOutOfAttemptsPlayer(currPlayer)) {
+            while (currPlayer.getAttemptCount() != MAX_ATTEMPTS) {
+                if (hasAttempts(currPlayer)) {
                     continue;
                 }
                 System.out.printf("Попытка %d%nЧисло вводит %s: ",
@@ -40,7 +41,7 @@ public class GuessNumber {
                 printCheckNumberMessage(playerNumber, secretNumber);
                 if (playerNumber == secretNumber) {
                     guessed = true;
-                    currPlayer.addWin();
+                    currPlayer.incrementWin();
                 }
                 if (guessed && isSameNumberAttempts()) {
                     break;
@@ -53,7 +54,14 @@ public class GuessNumber {
         printWinners(findWinner());
     }
 
-    private static void castLots(Random random) throws InterruptedException {
+    private void creatPlayers(Scanner scanner) {
+        for (int i = 0; i < PLAYERS_COUNT; i++) {
+            System.out.printf("Введите имя %d-ого игрока: ", i + 1);
+            players[i].setName(scanner.nextLine());
+        }
+    }
+
+    private void castLots(Random random) throws InterruptedException {
         for (int i = players.length - 1; i > 0; i--) {
             int randomIndex = random.nextInt(i + 1);
             Player temp = players[i];
@@ -63,7 +71,7 @@ public class GuessNumber {
         animateCastLots();
     }
 
-    private static void animateCastLots() throws InterruptedException {
+    private void animateCastLots() throws InterruptedException {
         String message = "Бросаем жребий, чтобы определить, кто будет угадывать первым...";
         System.out.print(message);
         Thread.sleep(1500);
@@ -71,13 +79,13 @@ public class GuessNumber {
         printSpinner();
     }
 
-    private static void cleanLine(String message) {
+    private void cleanLine(String message) {
         System.out.print("\r");
         System.out.print(" ".repeat(message.length()));
         System.out.print("\r");
     }
 
-    public static void printSpinner() throws InterruptedException {
+    private void printSpinner() throws InterruptedException {
         char[] spins = {'-', '\\', '|', '/'};
         for (int i = 0; i < spins.length * 3; i++) {
             System.out.print("\rЖребий: " + spins[i % 4]);
@@ -89,15 +97,7 @@ public class GuessNumber {
         }
     }
 
-    private boolean isRoundOverByAttempts() {
-        int sumAttemps = 0;
-        for (int i = 0; i < COUNT_PLAYERS; i++) {
-            sumAttemps += players[i].getAttemptCount();
-        }
-        return (sumAttemps == COUNT_PLAYERS * MAX_ATTEMPTS);
-    }
-
-    private static boolean isOutOfAttemptsPlayer(Player currPlayer) {
+    private boolean hasAttempts(Player currPlayer) {
         if (currPlayer.getAttemptCount() == MAX_ATTEMPTS) {
             System.out.printf("У %s закончились попытки!%n", currPlayer.getName());
             return true;
@@ -105,12 +105,12 @@ public class GuessNumber {
         return false;
     }
 
-    private static int enterNumber(Player currPlayer, Scanner scanner) {
+    private int enterNumber(Player currPlayer, Scanner scanner) {
         while (true) {
             try {
                 int playerNumber = scanner.nextInt();
                 scanner.nextLine();
-                currPlayer.setNumbers(playerNumber);
+                currPlayer.addGuessedNumber(playerNumber);
                 return playerNumber;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
@@ -121,7 +121,7 @@ public class GuessNumber {
         }
     }
 
-    private static void printCheckNumberMessage(int playerNumber, int secretNumber) {
+    private void printCheckNumberMessage(int playerNumber, int secretNumber) {
         if (playerNumber == secretNumber) {
             System.out.print("Угадал!!!\n");
             return;
@@ -130,32 +130,32 @@ public class GuessNumber {
         System.out.printf("%d %s загаданного числа%n", playerNumber, checkMessage);
     }
 
-    private static boolean isSameNumberAttempts() {
+    private boolean isSameNumberAttempts() {
         int sumAttemps = 0;
-        for (int i = 0; i < COUNT_PLAYERS; i++) {
+        for (int i = 0; i < PLAYERS_COUNT; i++) {
             sumAttemps += players[i].getAttemptCount();
         }
-        return (sumAttemps % COUNT_PLAYERS == 0);
+        return (sumAttemps % PLAYERS_COUNT == 0);
     }
 
     private int changePlayerIndex() {
-        return currentPlayerIndex = (currentPlayerIndex + 1) % COUNT_PLAYERS;
+        return currentPlayerIndex = (currentPlayerIndex + 1) % PLAYERS_COUNT;
     }
 
-    private static void printGuessedNumbers() {
+    private void printGuessedNumbers() {
         System.out.println("Раунд завершен!\nИгроки ввели следующие числа: ");
         for (Player player : players) {
             System.out.println(player.getName() + ": " + player);
         }
     }
 
-    private static void resetPlayers() {
+    private void resetPlayers() {
         for (Player player : players) {
-            player.resetGuessedNumbers();
+            player.resetGameState();
         }
     }
 
-    private static void printWinners(Player[] winners) {
+    private void printWinners(Player[] winners) {
         int countWinners = winners.length;
         if (countWinners == 0) {
             System.out.println("Игра окончена: победителей нет!");
@@ -168,7 +168,7 @@ public class GuessNumber {
         System.out.println("Игра окончена. В ней одержал(и) победу: " + namesWinners.toString().trim());
     }
 
-    private static Player[] findWinner() {
+    private Player[] findWinner() {
         int maxWins = 0;
         int countWinners = 0;
         for (Player player : players) {

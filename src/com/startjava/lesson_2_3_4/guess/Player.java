@@ -8,10 +8,8 @@ public class Player {
     private int attemptCount;
     private int roundWins;
 
-    public Player(String name) {
-        this.name = name;
+    public Player() {
         guessedNumbers = new int[GuessNumber.MAX_ATTEMPTS];
-        roundWins = 0;
     }
 
     public String getName() {
@@ -26,10 +24,10 @@ public class Player {
         return Arrays.copyOf(guessedNumbers, attemptCount);
     }
 
-    public void setNumbers(int guessedNumber) {
+    public void addGuessedNumber(int guessedNumber) {
         if (guessedNumber < GuessNumber.MIN_NUMBER || guessedNumber > GuessNumber.MAX_NUMBER) {
             throw new IllegalArgumentException(
-                    String.format("Число должно входить в отрезок [%d, %d].\n" +
+                    String.format("Число должно входить в отрезок [%d, %d].%n" +
                                   "Попробуйте еще раз:", GuessNumber.MIN_NUMBER, GuessNumber.MAX_NUMBER));
         }
         guessedNumbers[attemptCount++] = guessedNumber;
@@ -39,23 +37,15 @@ public class Player {
         return attemptCount;
     }
 
-    public void setAttemptCount(int attemptCount) {
-        this.attemptCount = attemptCount;
-    }
-
     public int getRoundWins() {
         return roundWins;
     }
 
-    public void setRoundWins(int roundWins) {
-        this.roundWins = roundWins;
-    }
-
-    public void addWin() {
+    public void incrementWin() {
         roundWins++;
     }
 
-    public void resetGuessedNumbers() {
+    public void resetGameState() {
         Arrays.fill(guessedNumbers, 0, attemptCount, 0);
         resetAttemptCount();
     }
