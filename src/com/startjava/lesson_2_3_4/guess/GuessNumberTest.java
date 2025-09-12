@@ -5,10 +5,10 @@ import java.util.Scanner;
 public class GuessNumberTest {
     public static void main(String[] args) throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
-        GuessNumber game = new GuessNumber();
         String answerToQuestion = "yes";
         while (!answerToQuestion.equals("no")) {
             if (answerToQuestion.equals("yes")) {
+                GuessNumber game = new GuessNumber(scanner);
                 game.play(scanner);
             } else {
                 System.out.println("Введите корректный ответ [yes / no]: ");

@@ -8,7 +8,8 @@ public class Player {
     private int attemptCount;
     private int roundWins;
 
-    public Player() {
+    public Player(String name) {
+        this.name = name;
         guessedNumbers = new int[GuessNumber.MAX_ATTEMPTS];
     }
 
@@ -47,10 +48,6 @@ public class Player {
 
     public void resetGameState() {
         Arrays.fill(guessedNumbers, 0, attemptCount, 0);
-        resetAttemptCount();
-    }
-
-    private void resetAttemptCount() {
         attemptCount = 0;
     }
 
